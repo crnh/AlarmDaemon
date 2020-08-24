@@ -12,7 +12,7 @@ Sometimes a source does not give the exact wake time; e.g. if you are using a ca
 
 ## Why would you want to use this?
 
-Being a student, my life is more or less dictated by my university's schedule, so being able to schedule my alarms based on the university calendar makes life a little bit easier. Of course, I also want to be able to override this schedule. bla bla bla.
+Being a student, my life is more or less dictated by my university's schedule, so being able to schedule my alarms based on the university calendar makes life a little bit easier. Of course, I also want to be able to override this schedule, so it should also be able to use times I entered in Home Assistant. This functionality needs a lot of automations in order to get it working, and so `WakeApp` was born. Yes, it is complex and probably a niche case. But if it works for me, it's probably worth sharing.
 
 ## Configuration
 
