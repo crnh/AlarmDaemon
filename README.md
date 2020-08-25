@@ -1,3 +1,5 @@
+> :warning: **This app is currently under development and does not work yet. The docs below are my ideas about how it _should_ work and are regularly updated during the development process. As soon as the app works, I'll post about it on the Home Assistant Forums.** :warning: 
+
 # WakeApp: Automatically set your alarm based on multiple sources
 
 `WakeApp` is an AppDaemon app that automatically schedules alarms based on multiple sources, e.g. Home Assistant sensors, input_datetimes and calendars. It does currently only support Home Assistant entities as sources and I think that makes sense (since Home Assistant does a perfect job integrating a lot of services, why would I even want to write integrations for multiple calendar services myself?), but it shouldn't be too hard to add custom sources.
