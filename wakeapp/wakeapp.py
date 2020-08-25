@@ -8,6 +8,11 @@ from .sources import *
 
 from .const import *
 
+def change_service_notation(service_name: str) -> str:
+    """Changes HA service notation to AD service notation."""
+
+    return service_name.replace(".", "/", 1)
+
 # SOURCE_SCHEMA = vol.Schema(
 #     {
 #         vol.Required(CONF_ENTITY_ID): str,

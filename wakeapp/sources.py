@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Optional, Union
 from datetime import datetime, time
-from dateutil import tz
+from dateutil.parser import parse
 from voluptuous.error import Error
 from alarmy import WakeApp
 
@@ -115,10 +115,7 @@ class SensorSource(Source):
     def get_source_time(self) -> Union[time, datetime]:
         sensor_time = self.app.get_state(self.entity_id, attribute=self.attribute)
 
-        return datetime.strptime(sensor_time, self.date_format).replace(
-            tzinfo=tz.gettz(self.timezone)
-        )
-
+        return parse(sensor_time, self.date_format)
 
 class InputDatetimeSource(Source):
     def init_source(self, **kwargs) -> None:

@@ -57,8 +57,18 @@ option | type | default | description
 `entity_id` | string | Required | Entity ID of the source, domain must be either `calendar`, `input_datetime` or `sensor`
 `rules` | list | Optional | List of `rule` objects
 `days` | list | Optional | List of days on which the source should be used. Allowed values are sun, mon, tue, wed, thu, fri, sat.
-`date_format` | string | %Y-%M-%D %H:%M | Only used if the source is a sensor. Python strftime string to parse the sensor state to a (date)time object.
-`timezone` | string | Optional | Only used if the source is a sensor. Python `dateutil` timezone string, this is needed if the time is not specified in the local timezone (e.g. UTC).
+<!-- `date_format` | string | %Y-%M-%D %H:%M | Only used if the source is a sensor. Python strftime string to parse the sensor state to a (date)time object.
+`timezone` | string | Optional | Only used if the source is a sensor. Python `dateutil` timezone string, this is needed if the time is not specified in the local timezone (e.g. UTC). -->
+
+All time strings are parsed using `dateutil.parser.parse`, so most formats are supported without any configuration. If this does not work for your source, you can supply these extra arguments:
+
+option | type | default | description
+:----- | :--- | :------ | :----------
+`dayfirst` | boolean | False | Whether to interpret the first value in an ambiguous 3-integer date (e.g. 01/05/09) as the day (`True`) or month (`False`).
+`yearfirst` | boolean | False | Whether to interpret the first value in an ambiguous 3-integer date (e.g. 01/05/09) as the year. If `True`, the first number is taken to be the year, otherwise the last number is taken to be the year.
+`fuzzy` | boolean | False | Whether to allow fuzzy parsing, allowing for string like "Today is January 1, 2047 at 8:21:00A".
+
+For more information about these options, please consult the [`dateutil` docs](https://dateutil.readthedocs.io/en/stable/parser.html#dateutil.parser.parse).
 
 ### Rules
 
@@ -87,8 +97,12 @@ option | type | default | description
 
 ### Services
 
-The service object uses the normal Home Assistant script notation, with some additional parameters:
+The service object uses notation that is also used in automations and scripts, with some additional parameters. Although this app has been created with Home Assistant services in mind, you can of course also register your own AppDaemon services and call them from here.
 
 option | type | default | description
 :----- | :--- | :------ | :----------
 `offset` | int | 0 | Offset in seconds to execute the service call before or after the scheduled alarm time. A negative offset means the service will be called before the scheduled alarm time.
+`service` | string | Required | Name of the service that should be called. **Please note: if you supply the service name in Home Assistant notation (`script.my_fancy_script`) it will be automatically converted to AppDaemon notation (`script/my_fancy_script`).**
+`data` | dict | Optional | Arguments that should be supplied to the script. This dictionary is passed directly into the service call, without any prior modifications.
+
+ 
